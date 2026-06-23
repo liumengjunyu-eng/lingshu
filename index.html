@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1142,7 +1142,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     if (traitMap[wx.strongest]) traits.push(traitMap[wx.strongest]);
     // Day master trait
     var dmTrait = { '甲':'Bold','乙':'Gentle','丙':'Radiant','丁':'Warm','戊':'Steady','己':'Nurturing','庚':'Sharp','辛':'Refined','壬':'Deep','癸':'Mysterious' };
-    if (dmTrait[r.bazi.dayMaster]) traits.push(dmTrait[r.bazi.dayMaster]);
+    if (dmTrait[(r.bazi && r.bazi.dayMaster)]) traits.push(dmTrait[r.bazi.dayMaster]);
     // Constitution trait
     var constitTrait = { '平和':'Balanced','气虚':'Thoughtful','阳虚':'Calm','阴虚':'Focused','痰湿':'Easygoing','湿热':'Dynamic','血瘀':'Resilient','气郁':'Sensitive','特禀':'Unique' };
     if (constitTrait[r.constitution]) traits.push(constitTrait[r.constitution]);
@@ -1156,8 +1156,9 @@ select option { background: var(--bg-soft); color: var(--text); }
     var rc = document.getElementById('reportContent');
     if (!rc) return;
 
-    var elCounts = r.wuxing.counts;
-    var elPcts = r.wuxing.percentages;
+    var wx = r.wuxing || {};
+    var elCounts = wx.counts || {};
+    var elPcts = wx.percentages || {};
     var html = '';
 
     // Title
@@ -1179,22 +1180,22 @@ select option { background: var(--bg-soft); color: var(--text); }
       html += '</div>';
     });
     html += '</div>';
-    html += '<div class="sub" style="margin-top:.8rem;">Strongest: <b style="color:' + elColors[r.wuxing.strongest] + '">' + elNames[r.wuxing.strongest] + '</b> · Weakest: <b style="color:' + elColors[r.wuxing.weakest] + '">' + elNames[r.wuxing.weakest] + '</b> · Favorable: <b style="color:var(--gold)">' + elNames[r.wuxing.yongshan] + '</b></div>';
+    html += '<div class="sub" style="margin-top:.8rem;">Strongest: <b style="color:' + (elColors[wx.strongest]||'#888') + '">' + (elNames[wx.strongest]||'Unknown') + '</b> · Weakest: <b style="color:' + (elColors[wx.weakest]||'#888') + '">' + (elNames[wx.weakest]||'Unknown') + '</b> · Favorable: <b style="color:var(--gold)">' + (elNames[wx.yongshan]||'Balance') + '</b></div>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.wuxing.src + '</span><div class="cite-text">' + citations.wuxing.text + '</div></div>';
     html += '</div>';
 
     // ② Five Element Summary — Co-Star "cool truth" personality
-    var strongest = elNames[r.wuxing.strongest];
-    var weakest = elNames[r.wuxing.weakest];
-    var favorable = elNames[r.wuxing.yongshan];
+    var strongest = elNames[wx.strongest] || 'Unknown';
+    var weakest = elNames[wx.weakest] || 'Unknown';
+    var favorable = elNames[wx.yongshan] || 'Balance';
     html += '<div class="report-card"><h3>② Your Inner Energy Team</h3>';
     html += '<p style="color:var(--text);font-size:.92rem;line-height:1.8;">';
-    html += 'Your chart shows strong <b style="color:' + elColors[r.wuxing.strongest] + '">' + strongest + '</b> and ';
-    html += 'weak <b style="color:' + elColors[r.wuxing.weakest] + '">' + weakest + '</b>. ';
+    html += 'Your chart shows strong <b style="color:' + (elColors[wx.strongest]||'var(--gold)') + '">' + strongest + '</b> and ';
+    html += 'weak <b style="color:' + (elColors[wx.weakest]||'var(--gold)') + '">' + weakest + '</b>. ';
     html += 'Think of them as your inner energy team — ' + strongest + ' is overperforming while ' + weakest + ' needs support. ';
     html += 'Your energy pattern shows you\'re ready for <b style="color:var(--gold)">' + favorable.toLowerCase() + '</b> energy to restore balance. ';
     html += 'This isn\'t about fixing what\'s broken. It\'s about giving your body what it\'s been quietly asking for.</p>';
-    html += '<p style="color:var(--text-2);font-size:.85rem;margin-top:.8rem;">' + elTraits[r.wuxing.strongest] + ' dominates your personality. ' + elOrgans[r.wuxing.weakest] + ' may need extra care.</p>';
+    html += '<p style="color:var(--text-2);font-size:.85rem;margin-top:.8rem;">' + (elTraits[wx.strongest]||'Energy') + ' dominates your personality. ' + (elOrgans[wx.weakest]||'System') + ' may need extra care.</p>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.bazi.src + '</span><div class="cite-text">' + citations.bazi.text + '</div></div>';
     html += '</div>';
 
@@ -1206,7 +1207,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Color</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyColors.join(', ') + '</div></div>';
     html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Numbers</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyNums.join(', ') + '</div></div>';
     html += '</div>';
-    html += '<div style="margin-top:.8rem;font-size:.85rem;color:var(--text-2);"><b>Do:</b> Wear ' + luckyColors[0].toLowerCase() + ' tones, face ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' direction<br><b>Avoid:</b> Overexertion, late nights</div>';
+    html += '<div style="margin-top:.8rem;font-size:.85rem;color:var(--text-2);"><b>Do:</b> Wear ' + (luckyColors[0]||'yellow').toLowerCase() + ' tones, face ' + ((r.yongshenData && r.yongshenData.direction) || 'south') + ' direction<br><b>Avoid:</b> Overexertion, late nights</div>';
     html += '</div>';
 
     // ④ Share Your Energy Avatar (BEFORE paywall — share first, pay later)
@@ -1251,10 +1252,10 @@ select option { background: var(--bg-soft); color: var(--text); }
       html += '<div class="locked">';
       html += '<div class="report-card"><h3>④ Complete BaZi Chart</h3><div class="bazi-row">';
       ['year','month','day','hour'].forEach(function(p, i) {
-        var gz = r.bazi[p]; var stem = gz[0], branch = gz[1];
+        var gz = (r.bazi && r.bazi[p]) || ['','']; var stem = gz[0], branch = gz[1];
         html += '<div class="bazi-pillar"><div class="bp-label">' + ['Year','Month','Day','Hour'][i] + '</div>';
         html += '<div class="bp-gan">' + stem + '</div><div class="bp-zhi">' + branch + '</div>';
-        html += '<div class="bp-wx">' + (elNames[r.wuxing.dayMasterWx] || '') + '</div></div>';
+        html += '<div class="bp-wx">' + (elNames[wx.dayMasterWx] || '') + '</div></div>';
       });
       html += '</div></div>';
       html += '</div>';
@@ -1279,17 +1280,17 @@ select option { background: var(--bg-soft); color: var(--text); }
     html += '<div class="report-card"><h3>④ Complete Birth Chart Analysis</h3>';
     html += '<div class="bazi-row">';
     ['year','month','day','hour'].forEach(function(p, i) {
-      var gz = r.bazi[p]; var stem = gz[0], branch = gz[1];
+      var gz = (r.bazi && r.bazi[p]) || ['','']; var stem = gz[0], branch = gz[1];
       html += '<div class="bazi-pillar"><div class="bp-label">' + ['Year','Month','Day','Hour'][i] + '</div>';
       html += '<div class="bp-gan">' + stem + '</div><div class="bp-zhi">' + branch + '</div>';
-      html += '<div class="bp-wx">' + elNames[r.wuxing.dayMasterWx] + '</div></div>';
+      html += '<div class="bp-wx">' + (elNames[wx.dayMasterWx] || '') + '</div></div>';
     });
     html += '</div>';
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.85rem;margin-top:1rem;">';
-    html += '<div>Day Master: <b style="color:var(--gold)">' + r.bazi.dayMaster + '</b></div>';
-    html += '<div>Zodiac: <b>' + r.bazi.zodiac + '</b></div>';
-    html += '<div>Constitution: <b style="color:var(--gold)">' + (constitutions[r.constitution] || r.constitution) + '</b></div>';
-    html += '<div>Favorable Element: <b style="color:var(--gold)">' + elNames[r.wuxing.yongshan] + '</b></div>';
+    html += '<div>Day Master: <b style="color:var(--gold)">' + (r.bazi&&r.bazi.dayMaster||'') + '</b></div>';
+    html += '<div>Zodiac: <b>' + (r.bazi&&r.bazi.zodiac||'') + '</b></div>';
+    html += '<div>Constitution: <b style="color:var(--gold)">' + (constitutions[r.constitution] || r.constitution || 'Unknown') + '</b></div>';
+    html += '<div>Favorable Element: <b style="color:var(--gold)">' + (elNames[wx.yongshan]||'Balance') + '</b></div>';
     html += '</div>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.bazi.src + '</span><div class="cite-text">' + citations.bazi.text + '</div></div>';
     html += '</div>';
@@ -1297,11 +1298,12 @@ select option { background: var(--bg-soft); color: var(--text); }
     // ⑤ Ten Gods Analysis → "Career & Life Path"
     html += '<div class="report-card"><h3>⑤ Career & Life Path Analysis</h3>';
     html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.8rem;">';
-    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Year</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.yearGod + '</div></div>';
-    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Month</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.monthGod + '</div></div>';
-    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Hour</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.hourGod + '</div></div>';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Year</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + ((r.tenGods && r.tenGods.yearGod) || '-') + '</div></div>';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Month</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + ((r.tenGods && r.tenGods.monthGod) || '-') + '</div></div>';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Hour</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + ((r.tenGods && r.tenGods.hourGod) || '-') + '</div></div>';
     html += '</div>';
-    html += '<p style="font-size:.88rem;color:var(--text);">Your month pillar\'s ruling god is <b style="color:var(--gold)">' + r.tenGods.monthGod + '</b>, which shapes your career path and core personality. This suggests a natural inclination toward ' + (r.tenGods.monthGod.indexOf('官') >= 0 ? 'leadership and structure' : r.tenGods.monthGod.indexOf('财') >= 0 ? 'business and finance' : r.tenGods.monthGod.indexOf('印') >= 0 ? 'knowledge and education' : r.tenGods.monthGod.indexOf('食') >= 0 ? 'creativity and expression' : 'independence and action') + '.</p>';
+    var monthGod = (r.tenGods && r.tenGods.monthGod) || '';
+    html += '<p style="font-size:.88rem;color:var(--text);">Your month pillar\'s ruling god is <b style="color:var(--gold)">' + monthGod + '</b>, which shapes your career path and core personality. This suggests a natural inclination toward ' + (monthGod.indexOf('官') >= 0 ? 'leadership and structure' : monthGod.indexOf('财') >= 0 ? 'business and finance' : monthGod.indexOf('印') >= 0 ? 'knowledge and education' : monthGod.indexOf('食') >= 0 ? 'creativity and expression' : 'independence and action') + '.</p>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.tenGods.src + '</span><div class="cite-text">' + citations.tenGods.text + '</div></div>';
     html += '</div>';
 
@@ -1312,8 +1314,8 @@ select option { background: var(--bg-soft); color: var(--text); }
     // Movement
     html += '<div style="margin-bottom:1.2rem;">';
     html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🏃 Movement</h4>';
-    html += '<p style="font-size:.85rem;color:var(--text);">' + r.exercise.sports.join(', ') + ' · ' + r.exercise.intensity + ' · ' + r.exercise.frequency + '</p>';
-    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Best time: ' + r.exercise.time + '. ' + r.exercise.note + '</p>';
+    html += '<p style="font-size:.85rem;color:var(--text);">' + ((r.exercise && r.exercise.sports) || ['walking']).join(', ') + ' · ' + ((r.exercise && r.exercise.intensity) || 'moderate') + ' · ' + ((r.exercise && r.exercise.frequency) || '3x/week') + '</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Best time: ' + ((r.exercise && r.exercise.time) || 'morning') + '. ' + ((r.exercise && r.exercise.note) || 'Listen to your body') + '</p>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.exercise.src + '</span><div class="cite-text">' + citations.exercise.text + '</div></div>';
     html += '</div>';
 
@@ -1335,7 +1337,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     var cm = r.constit && r.constit.moxa ? r.constit.moxa : { points: ['Zusanli (ST36)'], method: 'Gentle warming' };
     html += '<p style="font-size:.85rem;color:var(--text);">Key points: ' + cm.points.join(', ') + '</p>';
     html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">' + cm.method + '</p>';
-    html += '<p style="font-size:.78rem;color:var(--text-3);margin-top:.2rem;">Favorable element ' + elNames[r.wuxing.yongshan] + ' → Target organ: ' + elOrgans[r.wuxing.yongshan] + '</p>';
+    html += '<p style="font-size:.78rem;color:var(--text-3);margin-top:.2rem;">Favorable element ' + (elNames[wx.yongshan]||'Balance') + ' → Target organ: ' + (elOrgans[wx.yongshan]||'Body') + '</p>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.moxa.src + '</span><div class="cite-text">' + citations.moxa.text + '</div></div>';
     html += '</div>';
 
@@ -1343,16 +1345,16 @@ select option { background: var(--bg-soft); color: var(--text); }
     html += '<div style="margin-bottom:1.2rem;">';
     html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🧘 Mind</h4>';
     html += '<p style="font-size:.85rem;color:var(--text);">Daily meditation facing ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' direction.</p>';
-    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Your ' + elNames[r.wuxing.strongest] + ' energy brings ' + elTraits[r.wuxing.strongest].toLowerCase() + '. Channel this through mindful breathing and journaling.</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Your ' + (elNames[wx.strongest]||'Energy') + ' energy brings ' + ((elTraits[wx.strongest]||'unique').toLowerCase()) + '. Channel this through mindful breathing and journaling.</p>';
     html += '<p style="font-size:.85rem;color:var(--gold);font-style:italic;margin-top:.4rem;">"The wise person harmonizes with the way of heaven." — Huangdi Neijing</p>';
     html += '</div>';
 
     // Environment
     html += '<div style="margin-bottom:.5rem;">';
     html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🏠 Environment</h4>';
-    html += '<p style="font-size:.85rem;color:var(--text);">Wear: ' + (r.wearData && r.wearData.colors || []).join(', ') + ' tones</p>';
-    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Materials: ' + (r.wearData && r.wearData.materials || []).join(', ') + ' · Direction: ' + (r.yongshenData && r.yongshenData.direction || 'south') + '</p>';
-    html += '<p style="font-size:.8rem;color:var(--text-2);">Bedroom: ' + r.fengshui.bedroom + ' · Desk: ' + r.fengshui.desk + '</p>';
+    html += '<p style="font-size:.85rem;color:var(--text);">Wear: ' + ((r.wearData && r.wearData.colors) || ['neutral']).join(', ') + ' tones</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Materials: ' + ((r.wearData && r.wearData.materials) || ['natural']).join(', ') + ' · Direction: ' + ((r.yongshenData && r.yongshenData.direction) || 'south') + '</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);">Bedroom: ' + ((r.fengshui && r.fengshui.bedroom) || 'quiet area') + ' · Desk: ' + ((r.fengshui && r.fengshui.desk) || 'well-lit') + '</p>';
     html += '<div class="cite"><span class="cite-src">— ' + citations.fengshui.src + '</span><div class="cite-text">' + citations.fengshui.text + '</div></div>';
     html += '</div>';
     html += '</div>';
@@ -1417,7 +1419,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     var labels = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
     var keys = ['木','火','土','金','水'];
     var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
-    var counts = keys.map(function(k) { return r.wuxing.counts[k] || 0; });
+    var counts = keys.map(function(k) { return (wx.counts && wx.counts[k]) || 0; });
     var maxCount = Math.max.apply(null, counts) || 1;
     var values = counts.map(function(c) { return c / maxCount; });
     var n = 5;
@@ -1503,7 +1505,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     var cx = 80, cy = 80, maxR = 55;
     var keys = ['木','火','土','金','水'];
     var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
-    var counts = keys.map(function(k) { return r.wuxing.counts[k] || 0; });
+    var counts = keys.map(function(k) { return (wx.counts && wx.counts[k]) || 0; });
     var maxCount = Math.max.apply(null, counts) || 1;
     var values = counts.map(function(c) { return c / maxCount; });
     var n = 5;
