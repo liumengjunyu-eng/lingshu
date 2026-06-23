@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "name": "lingshu-life-compass",
+  "builds": [
+    { "src": "*.html", "use": "@vercel/static" },
+    { "src": "intl-engine.js", "use": "@vercel/static" },
+    { "src": "api/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/lingShu.html" },
+    { "src": "/api/(.*)", "dest": "/api/$1" }
+  ]
+}

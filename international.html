@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>LingShu · Life Compass — Your body is your best feng shui</title>
+
+<!-- Google Fonts: Playfair Display + Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   LingShu · Life Compass — International Edition v2.0
+   Design System: Deep Starry Night + Antique Gold
+   ============================================================ */
+
+:root {
+  /* Backgrounds */
+  --bg: #0D0D1A;           /* Deep starry black */
+  --bg-soft: #1A1A2E;      /* Deep ink blue — cards */
+  --bg-card: #161628;       /* Slightly lighter card */
+  --bg-input: #121220;      /* Input fields */
+
+  /* Primary — Antique Gold */
+  --gold: #C9A96E;          /* Titles, primary buttons */
+  --gold-light: #D4BC8A;    /* Hover, secondary */
+  --gold-dark: #A88B52;     /* Pressed */
+
+  /* Secondary — Warm Copper */
+  --copper: #D4A574;        /* Accent, hover states */
+
+  /* Text */
+  --text: #E8E4DE;          /* Body text — warm off-white */
+  --text-2: #B0AAA0;        /* Secondary text */
+  --text-3: #8A8580;        /* Tertiary, disclaimers */
+  --text-4: #555550;        /* Muted, placeholders */
+
+  /* Five Elements Colors (vibrant on dark) */
+  --wood: #7DBF7D;
+  --fire: #E89090;
+  --earth: #D4B896;
+  --metal: #C8C8C8;
+  --water: #7DA8C0;
+
+  /* Borders & Dividers */
+  --border: #2A2A40;
+  --border-light: #1F1F35;
+  --divider: #1A1A2E;
+
+  /* Radii */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 32px;
+  --r-full: 999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 20px rgba(0,0,0,.35);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.4);
+  --shadow-gold: 0 4px 20px rgba(201,169,110,.2);
+
+  /* Transitions */
+  --ease: cubic-bezier(.4,0,.2,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+}
+
+/* ===== Reset ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: .5px;
+  line-height: 1.3;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== Starfield Background ===== */
+.starfield {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+  background: radial-gradient(ellipse at top, #1A1A2E 0%, #0D0D1A 60%);
+}
+.starfield::before, .starfield::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(201,169,110,.3), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,.2), transparent),
+    radial-gradient(2px 2px at 50% 50%, rgba(201,169,110,.15), transparent),
+    radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,.15), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(201,169,110,.2), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,.1), transparent),
+    radial-gradient(2px 2px at 10% 50%, rgba(201,169,110,.15), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,.15), transparent);
+  background-size: 400px 400px;
+  animation: twinkle 8s ease-in-out infinite alternate;
+}
+.starfield::after { background-size: 300px 300px; animation-delay: 4s; opacity: .6; }
+@keyframes twinkle { 0% { opacity: .4; } 100% { opacity: .8; } }
+
+/* ===== Container ===== */
+.container { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  font-family: 'Inter', sans-serif; font-weight: 600; font-size: .95rem;
+  padding: .9rem 2rem; border-radius: var(--r-full); border: none;
+  cursor: pointer; transition: all .3s var(--ease); text-decoration: none;
+  min-height: 48px;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), var(--copper));
+  color: #0D0D1A;
+  box-shadow: var(--shadow-gold);
+}
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(201,169,110,.35); }
+.btn-gold:active { transform: translateY(0); }
+.btn-outline {
+  background: transparent; color: var(--gold);
+  border: 1.5px solid var(--gold);
+}
+.btn-outline:hover { background: rgba(201,169,110,.08); border-color: var(--gold-light); }
+.btn-block { display: flex; width: 100%; }
+.btn-lg { padding: 1.1rem 2.5rem; font-size: 1.05rem; min-height: 52px; }
+
+/* ===== Form ===== */
+.form-group { margin-bottom: 1.2rem; }
+.form-group label {
+  display: block; color: var(--text-2); font-size: .82rem;
+  font-weight: 500; margin-bottom: .5rem; letter-spacing: .3px;
+}
+.form-group input, .form-group select {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  border-radius: var(--r-sm);
+  padding: .9rem 1rem;
+  font-size: 16px; /* prevents iOS zoom */
+  font-family: inherit;
+  transition: border-color .25s var(--ease);
+  min-height: 48px;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none; border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,169,110,.1);
+}
+.form-group input::placeholder { color: var(--text-4); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+select {
+  -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23C9A96E' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem;
+}
+select option { background: var(--bg-soft); color: var(--text); }
+
+/* ===== Hero Section ===== */
+.hero {
+  min-height: 90vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 4rem 1.5rem 3rem;
+}
+.hero-logo {
+  width: 64px; height: 64px; margin-bottom: 2rem;
+}
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700;
+  margin-bottom: 1rem; max-width: 600px;
+  background: linear-gradient(135deg, var(--gold), var(--copper), var(--gold));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .subtitle {
+  font-size: clamp(.9rem, 2.5vw, 1.1rem); color: var(--text-2);
+  margin-bottom: 2.5rem; max-width: 500px; line-height: 1.7;
+}
+.hero-cta { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
+/* ===== Input Section ===== */
+.input-section { padding: 3rem 0; }
+.input-section h2 {
+  font-size: 1.6rem; text-align: center; margin-bottom: .5rem;
+}
+.input-section .section-sub {
+  text-align: center; color: var(--text-3); font-size: .88rem;
+  margin-bottom: 2rem;
+}
+.input-card {
+  background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 2rem;
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== Demo Preview ===== */
+.demo-section { padding: 3rem 0; text-align: center; }
+.demo-section h2 { font-size: 1.6rem; margin-bottom: .5rem; }
+.demo-section .section-sub { color: var(--text-3); font-size: .88rem; margin-bottom: 2rem; }
+.demo-card {
+  background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: var(--r-lg); overflow: hidden; text-align: left;
+  max-width: 480px; margin: 0 auto; box-shadow: var(--shadow-md);
+  cursor: pointer; transition: all .3s var(--ease);
+}
+.demo-card:hover { border-color: var(--gold); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+.demo-header {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+  padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border);
+}
+.demo-header .dh-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--gold); font-weight: 600; }
+.demo-header .dh-meta { font-size: .75rem; color: var(--text-3); margin-top: .2rem; }
+.demo-body { padding: 1.5rem; }
+
+/* Radar chart canvas */
+.demo-radar { width: 100%; max-width: 280px; margin: 0 auto 1rem; display: block; }
+
+.demo-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-bottom: 1rem; }
+.demo-metric { text-align: center; background: var(--bg-input); border-radius: var(--r-sm); padding: .6rem; }
+.dm-label { display: block; font-size: .65rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .5px; }
+.dm-val { display: block; font-size: .85rem; font-weight: 600; color: var(--gold); margin-top: .2rem; }
+
+.demo-cite {
+  background: rgba(201,169,110,.06); border-left: 2px solid var(--gold);
+  padding: .6rem .8rem; border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: .75rem; color: var(--text-2); font-style: italic; margin-bottom: 1rem;
+}
+
+.demo-blur { position: relative; border-top: 1px solid var(--border); padding-top: 1rem; }
+.demo-blur-content { filter: blur(5px); opacity: .4; font-size: .82rem; line-height: 1.8; user-select: none; pointer-events: none; }
+.demo-blur-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  text-align: center; width: 100%;
+}
+.demo-lock {
+  display: inline-block; background: linear-gradient(135deg, var(--gold), var(--copper));
+  color: #0D0D1A; font-size: .85rem; font-weight: 700;
+  padding: .6rem 1.5rem; border-radius: var(--r-full);
+  box-shadow: var(--shadow-gold);
+}
+.demo-lock-sub { font-size: .7rem; color: var(--text-3); margin-top: .5rem; }
+
+/* ===== Social Proof ===== */
+.social-proof { padding: 3rem 0; text-align: center; }
+.sp-number {
+  font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700;
+  color: var(--gold); margin-bottom: .3rem;
+}
+.sp-label { color: var(--text-2); font-size: .9rem; }
+.sp-testimonials { margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.sp-testimonial {
+  background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 1.2rem; text-align: left;
+  max-width: 480px; margin: 0 auto;
+}
+.sp-testimonial .sp-text { font-size: .85rem; color: var(--text); line-height: 1.6; }
+.sp-testimonial .sp-author { font-size: .75rem; color: var(--gold); margin-top: .5rem; }
+
+/* ===== Footer ===== */
+.footer { padding: 2rem 0 3rem; text-align: center; border-top: 1px solid var(--border-light); margin-top: 2rem; }
+.footer-disclaimer {
+  font-size: .72rem; color: var(--text-3); line-height: 1.6;
+  max-width: 500px; margin: 0 auto 1rem; font-style: italic;
+}
+.footer-copy { font-size: .72rem; color: var(--text-4); }
+
+/* ===== Report Page ===== */
+.report-page { display: none; padding: 2rem 0 4rem; }
+.report-page.show { display: block; }
+.report-back {
+  display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--text-3); font-size: .85rem; cursor: pointer;
+  margin-bottom: 1.5rem; transition: color .2s;
+}
+.report-back:hover { color: var(--gold); }
+
+.report-card {
+  background: var(--bg-soft); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 1.8rem; margin-bottom: 1.2rem;
+  box-shadow: var(--shadow-sm);
+}
+.report-card h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+.report-card .sub { color: var(--text-3); font-size: .82rem; margin-bottom: 1rem; }
+
+/* Five Elements display */
+.wx-bar-row { display: flex; align-items: center; gap: .8rem; margin-bottom: .6rem; }
+.wx-bar-name { width: 60px; font-size: .85rem; font-weight: 600; }
+.wx-bar-track { flex: 1; height: 24px; background: var(--bg-input); border-radius: var(--r-full); overflow: hidden; position: relative; }
+.wx-bar-fill { height: 100%; border-radius: var(--r-full); transition: width .8s var(--ease-out); display: flex; align-items: center; justify-content: flex-end; padding-right: .6rem; font-size: .7rem; color: #0D0D1A; font-weight: 600; }
+.wx-bar-pct { width: 40px; text-align: right; font-size: .78rem; color: var(--text-2); }
+
+/* Element tags */
+.el-tag {
+  display: inline-flex; align-items: center; gap: .3rem;
+  padding: .2rem .6rem; border-radius: var(--r-full);
+  font-size: .72rem; font-weight: 600;
+}
+.el-tag.wood { background: rgba(125,191,125,.12); color: var(--wood); }
+.el-tag.fire { background: rgba(232,144,144,.12); color: var(--fire); }
+.el-tag.earth { background: rgba(212,184,150,.12); color: var(--earth); }
+.el-tag.metal { background: rgba(200,200,200,.12); color: var(--metal); }
+.el-tag.water { background: rgba(125,168,192,.12); color: var(--water); }
+
+/* Citation block */
+.cite {
+  background: rgba(201,169,110,.06); border-left: 2px solid var(--gold);
+  padding: .6rem .8rem; border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: .78rem; color: var(--text-2); margin: .6rem 0;
+}
+.cite .cite-src { color: var(--gold); font-weight: 600; }
+.cite .cite-text { font-style: italic; margin-top: .2rem; }
+
+/* Bazi pillars */
+.bazi-row { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.bazi-pillar { flex: 1; text-align: center; background: var(--bg-input); border-radius: var(--r-sm); padding: .8rem; border: 1px solid var(--border-light); }
+.bazi-pillar .bp-label { font-size: .65rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .5px; }
+.bazi-pillar .bp-gan { font-size: 1.2rem; color: var(--gold); font-weight: 700; font-family: 'Playfair Display', serif; margin: .2rem 0; }
+.bazi-pillar .bp-zhi { font-size: 1.2rem; color: var(--copper); font-weight: 700; font-family: 'Playfair Display', serif; }
+.bazi-pillar .bp-wx { font-size: .65rem; color: var(--text-3); margin-top: .2rem; }
+
+/* Paywall */
+.paywall {
+  background: linear-gradient(135deg, var(--bg-soft), var(--bg-card));
+  border: 1px solid var(--gold); border-radius: var(--r-lg);
+  padding: 2rem 1.5rem; text-align: center; margin: 1.5rem 0;
+  position: relative; overflow: hidden;
+}
+.paywall::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--copper), var(--gold));
+}
+.paywall .pw-icon { font-size: 2.5rem; margin-bottom: .5rem; }
+.paywall h3 { margin-bottom: .5rem; }
+.paywall .pw-desc { font-size: .85rem; color: var(--text-2); margin-bottom: 1rem; line-height: 1.6; }
+.paywall .pw-price { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: var(--gold); margin: .5rem 0; }
+.paywall .pw-price small { font-size: .9rem; color: var(--text-4); text-decoration: line-through; font-weight: 400; }
+.paywall .pw-features { text-align: left; max-width: 320px; margin: 1rem auto; font-size: .82rem; color: var(--text-2); }
+.paywall .pw-features div { padding: .25rem 0; }
+.paywall .pw-features div::before { content: '✓ '; color: var(--gold); font-weight: 700; }
+
+/* Locked content */
+.locked { filter: blur(6px); opacity: .3; pointer-events: none; user-select: none; }
+
+/* Score grid */
+.score-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; }
+.score-item { text-align: center; background: var(--bg-input); border-radius: var(--r-sm); padding: .8rem; }
+.score-item .si-label { font-size: .72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .5px; }
+.score-item .si-val { font-size: 1.5rem; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; }
+.score-item .si-bar { height: 4px; background: var(--divider); border-radius: 2px; margin-top: .4rem; overflow: hidden; }
+.score-item .si-fill { height: 100%; border-radius: 2px; transition: width .6s; }
+
+/* Action list */
+.action-list { list-style: none; }
+.action-list li { padding: .5rem 0; font-size: .88rem; color: var(--text); border-bottom: 1px solid var(--border-light); }
+.action-list li::before { content: '◆ '; color: var(--gold); }
+
+/* ===== Loading ===== */
+.loading-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(13,13,26,.95); z-index: 9999;
+  display: none; align-items: center; justify-content: center;
+  flex-direction: column; gap: 1rem;
+}
+.loading-overlay.show { display: flex; }
+.loading-spinner {
+  width: 48px; height: 48px;
+  border: 3px solid var(--border); border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { color: var(--gold); font-size: .9rem; font-family: 'Playfair Display', serif; }
+
+/* ===== Mobile ===== */
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; gap: .5rem; }
+  .hero { min-height: 80vh; padding: 3rem 1rem 2rem; }
+  .demo-metrics { grid-template-columns: repeat(3, 1fr); gap: .3rem; }
+  .score-grid { grid-template-columns: 1fr 1fr; }
+  .bazi-pillar { padding: .6rem; }
+  .bazi-pillar .bp-gan, .bazi-pillar .bp-zhi { font-size: 1rem; }
+  .report-card { padding: 1.2rem; }
+  .input-card { padding: 1.2rem; }
+}
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.8rem; }
+  .demo-metrics { grid-template-columns: 1fr; }
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== Page transitions ===== */
+.fade-in { animation: fadeIn .6s var(--ease-out); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<!-- Starfield Background -->
+<div class="starfield"></div>
+
+<!-- ====== HOME PAGE ====== -->
+<div id="homePage" class="fade-in">
+
+  <!-- Block 1: Hero -->
+  <section class="hero">
+    <!-- Logo: minimalist human + compass -->
+    <svg class="hero-logo" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Human silhouette (simplified) -->
+      <circle cx="32" cy="14" r="5" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+      <line x1="32" y1="19" x2="32" y2="42" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="28" x2="42" y2="28" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="32" y1="42" x2="26" y2="56" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="32" y1="42" x2="38" y2="56" stroke="#C9A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Compass needle at chest -->
+      <circle cx="32" cy="28" r="7" stroke="#C9A96E" stroke-width="1" fill="none" opacity=".4"/>
+      <path d="M32 22 L34 28 L32 34 L30 28 Z" fill="#C9A96E" opacity=".8"/>
+    </svg>
+    <h1>Your body is your<br>best feng shui.</h1>
+    <p class="subtitle">AI-powered birth chart analysis + personalized wellness plan rooted in 5,000 years of Eastern wisdom</p>
+    <div class="hero-cta">
+      <button class="btn btn-gold btn-lg" onclick="document.getElementById('inputSection').scrollIntoView({behavior:'smooth'})">
+        Discover Your Energy Blueprint →
+      </button>
+    </div>
+    <p style="margin-top:2.5rem;font-size:.78rem;color:var(--text-3);letter-spacing:1px;">Powered by AI + 5,000 Years of Eastern Wisdom</p>
+  </section>
+
+  <!-- Block 2: Input -->
+  <section class="input-section" id="inputSection">
+    <div class="container">
+      <h2>Start with your birth information</h2>
+      <p class="section-sub">30 seconds to your personalized energy report. Free.</p>
+      <div class="input-card">
+        <form id="profileForm">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" name="name" placeholder="Enter your name" value="Demo User">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Date of Birth</label>
+              <input type="date" name="birthDate" value="1990-06-15" max="2030-12-31" min="1900-01-01">
+            </div>
+            <div class="form-group">
+              <label>Time of Birth</label>
+              <input type="time" name="birthTime" value="10:00">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Gender</label>
+              <select name="gender">
+                <option value="男">Male</option>
+                <option value="女">Female</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Blood Type</label>
+              <select name="bloodType">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="O">O</option>
+                <option value="AB">AB</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Place of Birth</label>
+            <input type="text" name="birthPlace" placeholder="City, Country (e.g. New York, USA)">
+          </div>
+          <div class="form-group">
+            <label>Body Constitution (TCM)</label>
+            <select name="constitution" id="constitutionSelect">
+              <option value="">Not sure? Take the quiz later</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-gold btn-block btn-lg" id="analyzeBtn" onclick="generateReport()">
+            Generate My Free Report →
+          </button>
+          <p style="text-align:center;margin-top:.8rem;font-size:.75rem;color:var(--text-4);">
+            🔒 Your information stays in your browser. We don't store anything.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 3: Demo Preview -->
+  <section class="demo-section">
+    <div class="container">
+      <h2>See what you'll get</h2>
+      <p class="section-sub">A glimpse of your personalized Energy Blueprint</p>
+      <div class="demo-card" onclick="document.getElementById('inputSection').scrollIntoView({behavior:'smooth'})">
+        <div class="demo-header">
+          <div class="dh-title">Energy Blueprint — Demo</div>
+          <div class="dh-meta">Geng Wu · Ren Wu · Xin Hai · Gui Si</div>
+        </div>
+        <div class="demo-body">
+          <!-- Radar Chart -->
+          <canvas class="demo-radar" id="demoRadar" width="280" height="280"></canvas>
+          <div class="demo-metrics">
+            <div class="demo-metric"><span class="dm-label">Day Master</span><span class="dm-val">Xin Metal</span></div>
+            <div class="demo-metric"><span class="dm-label">Lucky Color</span><span class="dm-val">Yellow</span></div>
+            <div class="demo-metric"><span class="dm-label">Lucky No.</span><span class="dm-val">5, 8</span></div>
+          </div>
+          <div class="demo-cite">"Metal refines. Those born under Xin Metal are precise, elegant, and seek purity in all things." — <em>BaZi Mingli</em></div>
+          <!-- Blurred paid content -->
+          <div class="demo-blur">
+            <div class="demo-blur-content">
+              <strong>Complete Wellness Plan:</strong><br>
+              • Movement: Baduanjin breathing exercises at dawn<br>
+              • Nutrition: Yam and lotus seed porridge for spleen qi<br>
+              • Body: Acupressure on Zusanli (ST36) daily<br>
+              • Mind: Morning meditation facing west<br>
+              • Environment: Earth tones in living space<br>
+            </div>
+            <div class="demo-blur-overlay">
+              <div class="demo-lock">Unlock for $9.99</div>
+              <div class="demo-lock-sub">Full 5-dimension wellness plan</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 4: Social Proof -->
+  <section class="social-proof">
+    <div class="container">
+      <div class="sp-number">10,000+</div>
+      <div class="sp-label">people have found their balance</div>
+      <div class="sp-testimonials">
+        <div class="sp-testimonial">
+          <div class="sp-text">"I was skeptical at first, but the Five Element analysis was eerily accurate. The wellness plan actually helped my sleep."</div>
+          <div class="sp-author">— Sarah K., San Francisco</div>
+        </div>
+        <div class="sp-testimonial">
+          <div class="sp-text">"Finally, a wellness app that connects ancient wisdom with actionable daily steps. The acupressure suggestions were spot on."</div>
+          <div class="sp-author">— Marcus T., London</div>
+        </div>
+        <div class="sp-testimonial">
+          <div class="sp-text">"More than astrology — it's like having a personal TCM consultant. Worth every penny of the $9.99."</div>
+          <div class="sp-author">— Yuki M., Tokyo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 5: Footer -->
+  <footer class="footer">
+    <div class="container">
+      <!-- Social Links -->
+      <div style="margin-bottom:1.2rem;display:flex;gap:1.2rem;justify-content:center;">
+        <a href="#" style="font-size:1.4rem;color:var(--text-3);transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-3)'">📷</a>
+        <a href="#" style="font-size:1.4rem;color:var(--text-3);transition:color .2s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-3)'">🎵</a>
+      </div>
+      <p class="footer-disclaimer">
+        For entertainment and self-discovery purposes only. This AI-generated report is not a substitute for professional medical, financial, or psychological advice. By using this service, you agree to our Terms of Service and Privacy Policy.
+      </p>
+      <p style="font-size:.75rem;color:var(--gold);margin-bottom:.5rem;letter-spacing:.5px;">Powered by AI + Ancient Eastern Wisdom</p>
+      <p class="footer-copy">© 2025 LingShu · Life Compass. Rooted in wisdom, powered by AI.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- ====== REPORT PAGE ====== -->
+<div id="reportPage" class="report-page">
+  <div class="container">
+    <div class="report-back" onclick="backToHome()">← Back to Home</div>
+    <div id="reportContent"></div>
+  </div>
+</div>
+
+<!-- ====== Loading Overlay ====== -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Generating your Energy Blueprint...</div>
+</div>
+
+<!-- ====== Stripe Modal (Mock) ====== -->
+<div id="paywallModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:10000;align-items:center;justify-content:center;">
+  <div style="background:var(--bg-soft);border:1px solid var(--gold);border-radius:var(--r-lg);padding:2rem;max-width:400px;width:90%;text-align:center;">
+    <div style="font-size:2.5rem;margin-bottom:.5rem;">🔐</div>
+    <h3 style="margin-bottom:.5rem;">Unlock Full Report</h3>
+    <p style="color:var(--text-2);font-size:.85rem;margin-bottom:1rem;">You're only seeing 20% of your Energy Blueprint.</p>
+    <div style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold);margin-bottom:1rem;">$9.99</div>
+    <div style="text-align:left;max-width:300px;margin:0 auto 1rem;font-size:.82rem;color:var(--text-2);">
+      <div>✓ Full 8-characters birth chart analysis</div>
+      <div>✓ 5-dimension wellness plan</div>
+      <div>✓ Daily guidance tailored to your energy</div>
+      <div>✓ Daily lucky colors & numbers</div>
+      <div>✓ Classical text citations</div>
+      <div>✓ Shareable Energy Blueprint card</div>
+    </div>
+    <button class="btn btn-gold btn-block" style="margin-bottom:.5rem;" onclick="processPayment()">
+      Pay $9.99 with Stripe →
+    </button>
+    <button class="btn btn-outline btn-block" onclick="document.getElementById('paywallModal').style.display='none'">Maybe later</button>
+    <p style="font-size:.7rem;color:var(--text-4);margin-top:.8rem;">Secure payment via Stripe. Cancel anytime.</p>
+  </div>
+</div>
+
+<!-- ====== JavaScript ====== -->
+<script src="intl-engine.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ===== State =====
+  var isPaid = false;
+  var lastReport = null;
+
+  // ===== Constitution options =====
+  var constitutions = {
+    '平和': 'Balanced',
+    '气虚': 'Qi Deficient',
+    '阳虚': 'Yang Deficient',
+    '阴虚': 'Yin Deficient',
+    '痰湿': 'Phlegm-Damp',
+    '湿热': 'Damp-Heat',
+    '血瘀': 'Blood Stasis',
+    '气郁': 'Qi Stagnant',
+    '特禀': 'Special/Allergic'
+  };
+
+  // ===== Element translations =====
+  var elNames = {
+    '木': 'Wood', '火': 'Fire', '土': 'Earth', '金': 'Metal', '水': 'Water'
+  };
+  var elColors = {
+    '木': '#7DBF7D', '火': '#E89090', '土': '#D4B896', '金': '#C8C8C8', '水': '#7DA8C0'
+  };
+  var elOrgans = {
+    '木': 'Liver & Gallbladder', '火': 'Heart & Small Intestine',
+    '土': 'Spleen & Stomach', '金': 'Lungs & Large Intestine', '水': 'Kidneys & Bladder'
+  };
+  var elTraits = {
+    '木': 'Growth, creativity, planning',
+    '火': 'Passion, expression, leadership',
+    '土': 'Stability, nurturing, trust',
+    '金': 'Precision, discipline, justice',
+    '水': 'Wisdom, adaptability, depth'
+  };
+
+  // ===== Classical citations (English) =====
+  var citations = {
+    wuxing: { src: 'Huangdi Neijing (Yellow Emperor\'s Inner Canon), Ch.5', text: '"The five elements — Wood, Fire, Earth, Metal, Water — govern all phenomena. Their harmony is the foundation of health."' },
+    bazi: { src: 'Sanming Tonghui (Comprehensive Treatise on the Three Lives)', text: '"The four pillars of destiny encode the pattern of one\'s life. The Day Master is the self; the month pillar is the root."' },
+    tenGods: { src: 'Yuanhai Ziping (Ocean of Fate)', text: '"The Ten Gods reveal the relationship between self and world. The month\'s ruling god shapes one\'s core character and career path."' },
+    dayun: { src: 'Qiongtong Baojian (Treasured Mirror for Exploring Heaven)', text: '"Great fortune cycles every ten years, rising from the month pillar. When fortune supports your favorable element, prosperity follows."' },
+    diet: { src: 'Bencao Gangmu (Compendium of Materia Medica)', text: '"Food and medicine share the same origin. What nourishes also heals."' },
+    moxa: { src: 'Zhenjiu Dacheng (Great Compendium of Acupuncture)', text: '"Where needles cannot reach, moxibustion succeeds. Warm the meridian, and qi will follow."' },
+    fengshui: { src: 'BaZhai Mingjing (Bright Mirror of Eight Mansions)', text: '"When the dwelling matches the dweller\'s trigram, harmony follows. East-life people thrive in east-facing homes."' },
+    biorhythm: { src: 'Ling Shu (Spiritual Pivot), Zi Wu Liu Zhu', text: '"Energy flows through the twelve meridians in a daily cycle. Each organ peaks at its designated hour."' },
+    exercise: { src: 'Huangdi Neijing, Ch.2 (Four Seasons)', text: '"In spring, walk in the garden. In summer, embrace the sun. In autumn, rise with the rooster. In winter, await the daylight."' }
+  };
+
+  // ===== Init =====
+  function init() {
+    // Fill constitution select
+    var sel = document.getElementById('constitutionSelect');
+    if (sel && sel.options.length <= 1) {
+      Object.keys(constitutions).forEach(function(k) {
+        var opt = document.createElement('option');
+        opt.value = k;
+        opt.textContent = constitutions[k];
+        sel.appendChild(opt);
+      });
+    }
+    // Draw demo radar
+    drawDemoRadar();
+  }
+
+  // ===== Demo Radar Chart (Canvas) =====
+  function drawDemoRadar() {
+    var canvas = document.getElementById('demoRadar');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var cx = 140, cy = 140, maxR = 100;
+    var labels = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
+    var values = [0.3, 0.85, 0.15, 0.6, 0.55]; // demo values
+    var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
+    var n = 5;
+
+    ctx.clearRect(0, 0, 280, 280);
+
+    // Grid rings
+    for (var ring = 1; ring <= 4; ring++) {
+      ctx.beginPath();
+      var r = maxR * ring / 4;
+      for (var i = 0; i <= n; i++) {
+        var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+        var x = cx + r * Math.cos(angle);
+        var y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(201,169,110,' + (0.05 + ring * 0.04) + ')';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+
+    // Axes
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+      ctx.strokeStyle = 'rgba(201,169,110,.1)';
+      ctx.stroke();
+    }
+
+    // Data polygon
+    ctx.beginPath();
+    for (var i = 0; i <= n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var r = maxR * values[i % n];
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.fillStyle = 'rgba(201,169,110,.15)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(201,169,110,.6)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Data points
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var r = maxR * values[i];
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle);
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, 2 * Math.PI);
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+    }
+
+    // Labels
+    ctx.font = '12px Inter, sans-serif';
+    ctx.fillStyle = '#8A8580';
+    ctx.textAlign = 'center';
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var r = maxR + 18;
+      var x = cx + r * Math.cos(angle);
+      var y = cy + r * Math.sin(angle) + 4;
+      ctx.fillText(labels[i], x, y);
+    }
+  }
+
+  // ===== Generate Report =====
+  window.generateReport = function() {
+    var form = document.getElementById('profileForm');
+    if (!form) { alert('Form not found'); return; }
+
+    var name = form.elements['name'].value;
+    var birthDate = form.elements['birthDate'].value;
+    var birthTime = form.elements['birthTime'].value || '12:00';
+    var gender = form.elements['gender'].value;
+    var bloodType = form.elements['bloodType'].value;
+    var constitution = form.elements['constitution'].value || '平和';
+
+    if (!name || !birthDate) {
+      alert('Please enter your name and date of birth.');
+      return;
+    }
+
+    // Parse date
+    var parts = birthDate.split('-');
+    var birthYear = parseInt(parts[0]);
+    var birthMonth = parseInt(parts[1]);
+    var birthDay = parseInt(parts[2]);
+    var birthHour = parseInt(birthTime.split(':')[0]) || 12;
+
+    // Show loading
+    document.getElementById('loadingOverlay').classList.add('show');
+
+    setTimeout(function() {
+      try {
+        var E = window.XJG_ENGINE;
+        if (!E || !E.analyze) { throw new Error('Engine not loaded'); }
+
+        var r = E.analyze({
+          name: name, gender: gender,
+          birthYear: birthYear, birthMonth: birthMonth,
+          birthDay: birthDay, birthHour: birthHour,
+          bloodType: bloodType, constitution: constitution
+        });
+
+        if (!r || !r.bazi) { throw new Error('Engine returned invalid data'); }
+
+        lastReport = r;
+        renderReport(r);
+
+        // Switch to report page
+        document.getElementById('homePage').style.display = 'none';
+        var rp = document.getElementById('reportPage');
+        rp.classList.add('show', 'fade-in');
+        window.scrollTo(0, 0);
+
+      } catch(e) {
+        alert('Error generating report: ' + e.message);
+        console.error(e);
+      } finally {
+        document.getElementById('loadingOverlay').classList.remove('show');
+      }
+    }, 1200);
+  };
+
+  // ===== Back to Home =====
+  window.backToHome = function() {
+    document.getElementById('reportPage').classList.remove('show');
+    document.getElementById('homePage').style.display = 'block';
+    window.scrollTo(0, 0);
+  };
+
+  // ===== Paywall =====
+  window.showPaywall = function() {
+    document.getElementById('paywallModal').style.display = 'flex';
+  };
+
+  window.processPayment = function() {
+    // Mock Stripe payment — in production, redirect to Stripe Checkout
+    document.getElementById('paywallModal').style.display = 'none';
+    isPaid = true;
+    if (lastReport) {
+      renderReport(lastReport);
+    }
+  };
+
+  // ===== Share Energy Avatar =====
+  window.shareAvatar = function(platform) {
+    var text = 'Just discovered my Energy Blueprint! What\'s yours? Find out at LingShu.Life';
+    if (platform === 'instagram') {
+      alert('📸 Share to Instagram:\n\n"' + text + '"\n\n(Save your Energy Avatar image and post to Instagram Story)');
+    } else if (platform === 'tiktok') {
+      alert('🎵 Share to TikTok:\n\n"' + text + '"\n\n(Use your Energy Avatar as a TikTok sticker or background)');
+    }
+  };
+
+  // ===== Generate Traits from Report =====
+  function generateTraits(r) {
+    var traits = [];
+    var wx = r.wuxing;
+    var traitMap = {
+      '木': 'Creative', '火': 'Passionate', '土': 'Grounded', '金': 'Precise', '水': 'Intuitive'
+    };
+    // Strongest element trait
+    if (traitMap[wx.strongest]) traits.push(traitMap[wx.strongest]);
+    // Day master trait
+    var dmTrait = { '甲':'Bold','乙':'Gentle','丙':'Radiant','丁':'Warm','戊':'Steady','己':'Nurturing','庚':'Sharp','辛':'Refined','壬':'Deep','癸':'Mysterious' };
+    if (dmTrait[r.bazi.dayMaster]) traits.push(dmTrait[r.bazi.dayMaster]);
+    // Constitution trait
+    var constitTrait = { '平和':'Balanced','气虚':'Thoughtful','阳虚':'Calm','阴虚':'Focused','痰湿':'Easygoing','湿热':'Dynamic','血瘀':'Resilient','气郁':'Sensitive','特禀':'Unique' };
+    if (constitTrait[r.constitution]) traits.push(constitTrait[r.constitution]);
+    // Ensure 3 traits
+    if (traits.length < 3) traits.push('Growing');
+    return traits.slice(0, 3);
+  }
+
+  // ===== Render Report =====
+  function renderReport(r) {
+    var rc = document.getElementById('reportContent');
+    if (!rc) return;
+
+    var elCounts = r.wuxing.counts;
+    var elPcts = r.wuxing.percentages;
+    var html = '';
+
+    // Title
+    html += '<h2 style="font-size:1.8rem;text-align:center;margin-bottom:.5rem;">' + (r.name || 'Your') + '\'s Energy Blueprint</h2>';
+    html += '<p style="text-align:center;color:var(--text-3);font-size:.82rem;margin-bottom:1.5rem;">Generated on ' + new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) + '</p>';
+
+    // ① Five Element Radar Chart
+    html += '<div class="report-card"><h3>① Your Energy Blueprint</h3>';
+    html += '<canvas id="reportRadar" width="280" height="280" style="width:100%;max-width:280px;margin:0 auto;display:block;"></canvas>';
+    // Element bars
+    html += '<div style="margin-top:1rem;">';
+    ['木','火','土','金','水'].forEach(function(el) {
+      var count = elCounts[el] || 0;
+      var pct = elPcts[el] || 0;
+      html += '<div class="wx-bar-row">';
+      html += '<span class="wx-bar-name" style="color:' + elColors[el] + '">' + elNames[el] + '</span>';
+      html += '<div class="wx-bar-track"><div class="wx-bar-fill" style="width:' + Math.max(pct,5) + '%;background:' + elColors[el] + '">' + count + '</div></div>';
+      html += '<span class="wx-bar-pct">' + pct + '%</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+    html += '<div class="sub" style="margin-top:.8rem;">Strongest: <b style="color:' + elColors[r.wuxing.strongest] + '">' + elNames[r.wuxing.strongest] + '</b> · Weakest: <b style="color:' + elColors[r.wuxing.weakest] + '">' + elNames[r.wuxing.weakest] + '</b> · Favorable: <b style="color:var(--gold)">' + elNames[r.wuxing.yongshan] + '</b></div>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.wuxing.src + '</span><div class="cite-text">' + citations.wuxing.text + '</div></div>';
+    html += '</div>';
+
+    // ② Five Element Summary — Co-Star "cool truth" personality
+    var strongest = elNames[r.wuxing.strongest];
+    var weakest = elNames[r.wuxing.weakest];
+    var favorable = elNames[r.wuxing.yongshan];
+    html += '<div class="report-card"><h3>② Your Inner Energy Team</h3>';
+    html += '<p style="color:var(--text);font-size:.92rem;line-height:1.8;">';
+    html += 'Your chart shows strong <b style="color:' + elColors[r.wuxing.strongest] + '">' + strongest + '</b> and ';
+    html += 'weak <b style="color:' + elColors[r.wuxing.weakest] + '">' + weakest + '</b>. ';
+    html += 'Think of them as your inner energy team — ' + strongest + ' is overperforming while ' + weakest + ' needs support. ';
+    html += 'Your energy pattern shows you\'re ready for <b style="color:var(--gold)">' + favorable.toLowerCase() + '</b> energy to restore balance. ';
+    html += 'This isn\'t about fixing what\'s broken. It\'s about giving your body what it\'s been quietly asking for.</p>';
+    html += '<p style="color:var(--text-2);font-size:.85rem;margin-top:.8rem;">' + elTraits[r.wuxing.strongest] + ' dominates your personality. ' + elOrgans[r.wuxing.weakest] + ' may need extra care.</p>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.bazi.src + '</span><div class="cite-text">' + citations.bazi.text + '</div></div>';
+    html += '</div>';
+
+    // ③ Daily Lucky Tips
+    var luckyColors = (r.wearData && r.wearData.colors) || ['Yellow'];
+    var luckyNums = [Math.floor(Math.random()*9)+1, Math.floor(Math.random()*9)+1];
+    html += '<div class="report-card"><h3>③ Today\'s Energy Tips</h3>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">';
+    html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Color</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyColors.join(', ') + '</div></div>';
+    html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Numbers</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyNums.join(', ') + '</div></div>';
+    html += '</div>';
+    html += '<div style="margin-top:.8rem;font-size:.85rem;color:var(--text-2);"><b>Do:</b> Wear ' + luckyColors[0].toLowerCase() + ' tones, face ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' direction<br><b>Avoid:</b> Overexertion, late nights</div>';
+    html += '</div>';
+
+    // ④ Share Your Energy Avatar (BEFORE paywall — share first, pay later)
+    if (!isPaid) {
+      var traits = generateTraits(r);
+      html += '<div class="report-card" style="text-align:center;border:1px solid var(--gold);">';
+      html += '<h3 style="margin-bottom:.5rem;">📤 Share Your Energy Avatar</h3>';
+      html += '<p class="sub" style="margin-bottom:1rem;">Show the world your inner energy team</p>';
+      // Mini avatar card
+      html += '<div style="background:linear-gradient(135deg,var(--bg-input),var(--bg-card));border-radius:var(--r-md);padding:1.5rem;margin-bottom:1rem;">';
+      html += '<div style="font-family:Playfair Display,serif;font-size:1.3rem;color:var(--gold);font-weight:700;margin-bottom:.3rem;">' + (r.name||'You') + '</div>';
+      html += '<div style="font-size:.85rem;color:var(--text-2);margin-bottom:.8rem;">' + traits.join(' · ') + '</div>';
+      html += '<canvas id="avatarRadar" width="160" height="160" style="margin:0 auto;display:block;"></canvas>';
+      html += '<div style="font-size:.7rem;color:var(--text-4);margin-top:.5rem;">LingShu.Life</div>';
+      html += '</div>';
+      html += '<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">';
+      html += '<button class="btn btn-outline" style="font-size:.82rem;padding:.6rem 1.2rem;" onclick="shareAvatar(\'instagram\')">📷 Instagram</button>';
+      html += '<button class="btn btn-outline" style="font-size:.82rem;padding:.6rem 1.2rem;" onclick="shareAvatar(\'tiktok\')">🎵 TikTok</button>';
+      html += '</div>';
+      html += '</div>';
+    }
+
+    // ⑤ Paywall or Full Report
+    if (!isPaid) {
+      html += '<div class="paywall">';
+      html += '<div class="pw-icon">🔐</div>';
+      html += '<h3>You\'re only seeing 20% of your Energy Blueprint</h3>';
+      html += '<p class="pw-desc">Unlock your complete Life Compass Report to get:</p>';
+      html += '<div class="pw-features">';
+      html += '<div>Full 8-characters birth chart analysis</div>';
+      html += '<div>5-dimension wellness plan (Movement / Nutrition / Body / Mind / Environment)</div>';
+      html += '<div>Daily guidance tailored to your energy pattern</div>';
+      html += '</div>';
+      html += '<div class="pw-price">$9.99</div>';
+      html += '<button class="btn btn-gold btn-block btn-lg" onclick="showPaywall()">Unlock Full Report for $9.99 →</button>';
+      html += '<p style="font-size:.72rem;color:var(--text-4);margin-top:.6rem;">One-time payment. Instant access. No subscription required.</p>';
+      html += '</div>';
+
+      // Blurred preview of paid content
+      html += '<div class="locked">';
+      html += '<div class="report-card"><h3>④ Complete BaZi Chart</h3><div class="bazi-row">';
+      ['year','month','day','hour'].forEach(function(p, i) {
+        var gz = r.bazi[p]; var stem = gz[0], branch = gz[1];
+        html += '<div class="bazi-pillar"><div class="bp-label">' + ['Year','Month','Day','Hour'][i] + '</div>';
+        html += '<div class="bp-gan">' + stem + '</div><div class="bp-zhi">' + branch + '</div>';
+        html += '<div class="bp-wx">' + (elNames[r.wuxing.dayMasterWx] || '') + '</div></div>';
+      });
+      html += '</div></div>';
+      html += '</div>';
+    } else {
+      // FULL PAID REPORT
+      html += renderPaidReport(r);
+    }
+
+    rc.innerHTML = html;
+
+    // Draw radar chart
+    drawReportRadar(r);
+    // Draw avatar radar (if exists)
+    drawAvatarRadar(r);
+  }
+
+  // ===== Render Paid Report =====
+  function renderPaidReport(r) {
+    var html = '';
+
+    // ④ Full BaZi Chart → "Complete Birth Chart"
+    html += '<div class="report-card"><h3>④ Complete Birth Chart Analysis</h3>';
+    html += '<div class="bazi-row">';
+    ['year','month','day','hour'].forEach(function(p, i) {
+      var gz = r.bazi[p]; var stem = gz[0], branch = gz[1];
+      html += '<div class="bazi-pillar"><div class="bp-label">' + ['Year','Month','Day','Hour'][i] + '</div>';
+      html += '<div class="bp-gan">' + stem + '</div><div class="bp-zhi">' + branch + '</div>';
+      html += '<div class="bp-wx">' + elNames[r.wuxing.dayMasterWx] + '</div></div>';
+    });
+    html += '</div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.85rem;margin-top:1rem;">';
+    html += '<div>Day Master: <b style="color:var(--gold)">' + r.bazi.dayMaster + '</b></div>';
+    html += '<div>Zodiac: <b>' + r.bazi.zodiac + '</b></div>';
+    html += '<div>Constitution: <b style="color:var(--gold)">' + (constitutions[r.constitution] || r.constitution) + '</b></div>';
+    html += '<div>Favorable Element: <b style="color:var(--gold)">' + elNames[r.wuxing.yongshan] + '</b></div>';
+    html += '</div>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.bazi.src + '</span><div class="cite-text">' + citations.bazi.text + '</div></div>';
+    html += '</div>';
+
+    // ⑤ Ten Gods Analysis → "Career & Life Path"
+    html += '<div class="report-card"><h3>⑤ Career & Life Path Analysis</h3>';
+    html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.8rem;">';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Year</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.yearGod + '</div></div>';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Month</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.monthGod + '</div></div>';
+    html += '<div style="text-align:center;background:var(--bg-input);border-radius:var(--r-sm);padding:.6rem;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Hour</div><div style="font-size:1rem;color:var(--gold);font-weight:600;">' + r.tenGods.hourGod + '</div></div>';
+    html += '</div>';
+    html += '<p style="font-size:.88rem;color:var(--text);">Your month pillar\'s ruling god is <b style="color:var(--gold)">' + r.tenGods.monthGod + '</b>, which shapes your career path and core personality. This suggests a natural inclination toward ' + (r.tenGods.monthGod.indexOf('官') >= 0 ? 'leadership and structure' : r.tenGods.monthGod.indexOf('财') >= 0 ? 'business and finance' : r.tenGods.monthGod.indexOf('印') >= 0 ? 'knowledge and education' : r.tenGods.monthGod.indexOf('食') >= 0 ? 'creativity and expression' : 'independence and action') + '.</p>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.tenGods.src + '</span><div class="cite-text">' + citations.tenGods.text + '</div></div>';
+    html += '</div>';
+
+    // ⑥ Five Dimension Wellness Plan
+    html += '<div class="report-card"><h3>⑥ Your 5-Dimension Wellness Plan</h3>';
+    html += '<p class="sub">Rooted in classical texts. Personalized to your chart.</p>';
+
+    // Movement
+    html += '<div style="margin-bottom:1.2rem;">';
+    html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🏃 Movement</h4>';
+    html += '<p style="font-size:.85rem;color:var(--text);">' + r.exercise.sports.join(', ') + ' · ' + r.exercise.intensity + ' · ' + r.exercise.frequency + '</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Best time: ' + r.exercise.time + '. ' + r.exercise.note + '</p>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.exercise.src + '</span><div class="cite-text">' + citations.exercise.text + '</div></div>';
+    html += '</div>';
+
+    // Nutrition
+    html += '<div style="margin-bottom:1.2rem;">';
+    html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🥗 Nutrition</h4>';
+    if (r.herbFormulas && r.herbFormulas.length > 0) {
+      var hf = r.herbFormulas[0];
+      html += '<p style="font-size:.85rem;color:var(--text);"><b>' + hf.name + '</b> — ' + hf.efficacy + '</p>';
+      html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Ingredients: ' + (hf.ingredients || []).join(', ') + '</p>';
+      html += '<p style="font-size:.78rem;color:var(--text-3);margin-top:.2rem;">Source: ' + hf.source + '</p>';
+    }
+    html += '<div class="cite"><span class="cite-src">— ' + citations.diet.src + '</span><div class="cite-text">' + citations.diet.text + '</div></div>';
+    html += '</div>';
+
+    // Body (Acupressure/Moxibustion)
+    html += '<div style="margin-bottom:1.2rem;">';
+    html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🔥 Body (Acupressure & Moxibustion)</h4>';
+    var cm = r.constit && r.constit.moxa ? r.constit.moxa : { points: ['Zusanli (ST36)'], method: 'Gentle warming' };
+    html += '<p style="font-size:.85rem;color:var(--text);">Key points: ' + cm.points.join(', ') + '</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">' + cm.method + '</p>';
+    html += '<p style="font-size:.78rem;color:var(--text-3);margin-top:.2rem;">Favorable element ' + elNames[r.wuxing.yongshan] + ' → Target organ: ' + elOrgans[r.wuxing.yongshan] + '</p>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.moxa.src + '</span><div class="cite-text">' + citations.moxa.text + '</div></div>';
+    html += '</div>';
+
+    // Mind
+    html += '<div style="margin-bottom:1.2rem;">';
+    html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🧘 Mind</h4>';
+    html += '<p style="font-size:.85rem;color:var(--text);">Daily meditation facing ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' direction.</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Your ' + elNames[r.wuxing.strongest] + ' energy brings ' + elTraits[r.wuxing.strongest].toLowerCase() + '. Channel this through mindful breathing and journaling.</p>';
+    html += '<p style="font-size:.85rem;color:var(--gold);font-style:italic;margin-top:.4rem;">"The wise person harmonizes with the way of heaven." — Huangdi Neijing</p>';
+    html += '</div>';
+
+    // Environment
+    html += '<div style="margin-bottom:.5rem;">';
+    html += '<h4 style="font-size:.95rem;color:var(--copper);margin-bottom:.3rem;">🏠 Environment</h4>';
+    html += '<p style="font-size:.85rem;color:var(--text);">Wear: ' + (r.wearData && r.wearData.colors || []).join(', ') + ' tones</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);margin-top:.2rem;">Materials: ' + (r.wearData && r.wearData.materials || []).join(', ') + ' · Direction: ' + (r.yongshenData && r.yongshenData.direction || 'south') + '</p>';
+    html += '<p style="font-size:.8rem;color:var(--text-2);">Bedroom: ' + r.fengshui.bedroom + ' · Desk: ' + r.fengshui.desk + '</p>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.fengshui.src + '</span><div class="cite-text">' + citations.fengshui.text + '</div></div>';
+    html += '</div>';
+    html += '</div>';
+
+    // ⑦ Biorhythm
+    var br = r.biorhythm;
+    html += '<div class="report-card"><h3>⑦ Biorhythm & Meridian Clock</h3>';
+    html += '<div class="sub">Day ' + br.days + ' since birth</div>';
+    html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin-bottom:.8rem;">';
+    html += '<div class="score-item"><div class="si-label">Physical</div><div class="si-val">' + Math.round(br.physical) + '%</div><div class="si-bar"><div class="si-fill" style="width:' + Math.abs(br.physical)/2 + '%;background:var(--wood);"></div></div></div>';
+    html += '<div class="score-item"><div class="si-label">Emotional</div><div class="si-val">' + Math.round(br.emotional) + '%</div><div class="si-bar"><div class="si-fill" style="width:' + Math.abs(br.emotional)/2 + '%;background:var(--fire);"></div></div></div>';
+    html += '<div class="score-item"><div class="si-label">Intellectual</div><div class="si-val">' + Math.round(br.intellectual) + '%</div><div class="si-bar"><div class="si-fill" style="width:' + Math.abs(br.intellectual)/2 + '%;background:var(--water);"></div></div></div>';
+    html += '</div>';
+    html += '<div class="cite"><span class="cite-src">— ' + citations.biorhythm.src + '</span><div class="cite-text">' + citations.biorhythm.text + '</div></div>';
+    html += '</div>';
+
+    // ⑧ Action Checklist
+    html += '<div class="report-card"><h3>⑧ Your Daily Action Plan</h3>';
+    html += '<ul class="action-list">';
+    html += '<li>Wear ' + (r.wearData.colors[0] || 'yellow').toLowerCase() + ' tones daily</li>';
+    html += '<li>Practice ' + r.exercise.sports[0] + ' at ' + r.exercise.time + '</li>';
+    if (r.constit && r.constit.moxa) {
+      html += '<li>Apply acupressure to ' + r.constit.moxa.points.slice(0,2).join(', ') + '</li>';
+    }
+    if (r.herbFormulas && r.herbFormulas[0]) {
+      html += '<li>Try ' + r.herbFormulas[0].name + ' recipe weekly</li>';
+    }
+    html += '<li>Sleep before 11 PM (Zi hour — gallbladder meridian)</li>';
+    html += '<li>Meditate facing ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' for 10 minutes</li>';
+    html += '<li>Keep desk facing ' + r.fengshui.desk + '</li>';
+    html += '</ul>';
+    html += '<div class="cite"><span class="cite-src">— Classical References</span><div class="cite-text">Huangdi Neijing · Bencao Gangmu · Zhenjiu Dacheng · BaZhai Mingjing · Yuanhai Ziping</div></div>';
+    html += '</div>';
+
+    // Disclaimer
+    html += '<div class="report-card" style="border-color:var(--border-light);">';
+    html += '<p style="font-size:.72rem;color:var(--text-3);font-style:italic;line-height:1.6;">For entertainment and self-discovery purposes only. This AI-generated report is not a substitute for professional medical, financial, or psychological advice. Always consult a qualified practitioner for health concerns.</p>';
+    html += '</div>';
+
+    // Subscription Upsell
+    html += '<div class="report-card" style="text-align:center;border:1px solid var(--copper);">';
+    html += '<h3 style="color:var(--copper);margin-bottom:.5rem;">Get Daily Guidance</h3>';
+    html += '<p style="font-size:.85rem;color:var(--text-2);margin-bottom:1rem;">Daily energy updates + monthly wellness plan refresh.</p>';
+    html += '<div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;">';
+    html += '<button class="btn btn-outline" style="font-size:.85rem;">$9.99/month</button>';
+    html += '<button class="btn btn-gold" style="font-size:.85rem;">$79.99/year <span style="font-size:.7rem;opacity:.7;">(Save 33%)</span></button>';
+    html += '</div>';
+    html += '</div>';
+
+    // Trust Badge
+    html += '<p style="text-align:center;font-size:.78rem;color:var(--gold);margin-top:1.5rem;letter-spacing:.5px;">Every insight is referenced to classical texts. — Huangdi Neijing · I Ching</p>';
+
+    return html;
+  }
+
+  // ===== Draw Report Radar =====
+  function drawReportRadar(r) {
+    var canvas = document.getElementById('reportRadar');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var cx = 140, cy = 140, maxR = 100;
+    var labels = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
+    var keys = ['木','火','土','金','水'];
+    var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
+    var counts = keys.map(function(k) { return r.wuxing.counts[k] || 0; });
+    var maxCount = Math.max.apply(null, counts) || 1;
+    var values = counts.map(function(c) { return c / maxCount; });
+    var n = 5;
+
+    ctx.clearRect(0, 0, 280, 280);
+
+    // Grid
+    for (var ring = 1; ring <= 4; ring++) {
+      ctx.beginPath();
+      var rr = maxR * ring / 4;
+      for (var i = 0; i <= n; i++) {
+        var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+        var x = cx + rr * Math.cos(angle);
+        var y = cy + rr * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(201,169,110,' + (0.05 + ring * 0.04) + ')';
+      ctx.stroke();
+    }
+
+    // Axes
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + maxR * Math.cos(angle), cy + maxR * Math.sin(angle));
+      ctx.strokeStyle = 'rgba(201,169,110,.1)';
+      ctx.stroke();
+    }
+
+    // Data
+    ctx.beginPath();
+    for (var i = 0; i <= n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var rr = maxR * values[i % n];
+      var x = cx + rr * Math.cos(angle);
+      var y = cy + rr * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.fillStyle = 'rgba(201,169,110,.15)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(201,169,110,.6)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Points
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var rr = maxR * values[i];
+      var x = cx + rr * Math.cos(angle);
+      var y = cy + rr * Math.sin(angle);
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, 2 * Math.PI);
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+      ctx.strokeStyle = '#0D0D1A';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Labels
+    ctx.font = 'bold 13px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var rr = maxR + 20;
+      var x = cx + rr * Math.cos(angle);
+      var y = cy + rr * Math.sin(angle) + 5;
+      ctx.fillStyle = colors[i];
+      ctx.fillText(labels[i], x, y);
+      ctx.fillStyle = '#8A8580';
+      ctx.font = '11px Inter, sans-serif';
+      ctx.fillText(counts[i].toString(), x, y + 14);
+      ctx.font = 'bold 13px Inter, sans-serif';
+    }
+  }
+
+  // ===== Draw Avatar Radar (mini, for share card) =====
+  function drawAvatarRadar(r) {
+    var canvas = document.getElementById('avatarRadar');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var cx = 80, cy = 80, maxR = 55;
+    var keys = ['木','火','土','金','水'];
+    var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
+    var counts = keys.map(function(k) { return r.wuxing.counts[k] || 0; });
+    var maxCount = Math.max.apply(null, counts) || 1;
+    var values = counts.map(function(c) { return c / maxCount; });
+    var n = 5;
+
+    ctx.clearRect(0, 0, 160, 160);
+
+    // Grid
+    for (var ring = 1; ring <= 3; ring++) {
+      ctx.beginPath();
+      var rr = maxR * ring / 3;
+      for (var i = 0; i <= n; i++) {
+        var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+        var x = cx + rr * Math.cos(angle);
+        var y = cy + rr * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = 'rgba(201,169,110,.08)';
+      ctx.stroke();
+    }
+
+    // Data polygon
+    ctx.beginPath();
+    for (var i = 0; i <= n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var rr = maxR * values[i % n];
+      var x = cx + rr * Math.cos(angle);
+      var y = cy + rr * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.fillStyle = 'rgba(201,169,110,.15)';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(201,169,110,.5)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Points
+    for (var i = 0; i < n; i++) {
+      var angle = -Math.PI / 2 + (i * 2 * Math.PI / n);
+      var rr = maxR * values[i];
+      var x = cx + rr * Math.cos(angle);
+      var y = cy + rr * Math.sin(angle);
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, 2 * Math.PI);
+      ctx.fillStyle = colors[i];
+      ctx.fill();
+    }
+  }
+
+  // ===== Auto-init =====
+  try { init(); } catch(e) { console.error('Init error:', e); }
+  document.addEventListener('DOMContentLoaded', function() {
+    try { init(); } catch(e) { console.error('DOMContentLoaded init error:', e); }
+  });
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+node_modules/
+*.db
+*.db-shm
+*.db-wal
+.env
+.DS_Store
+__pycache__/
+*.pyc
+cn-index-backup.html
+xuanjige-server/node_modules/
+xuanjige-miniprogram/
