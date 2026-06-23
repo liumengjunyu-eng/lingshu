@@ -61,6 +61,7 @@
       // 渲染报告（加保护，出错也跳转并显示部分内容）
       try {
         renderReport(r);
+        if(window.renderWellnessPlan) window.renderWellnessPlan(r);
       } catch(renderErr) {
         // 渲染失败时至少显示基本信息
         var rc = document.getElementById('reportContent');
