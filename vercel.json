@@ -1,13 +1,1 @@
-{
-  "version": 2,
-  "name": "lingshu-life-compass",
-  "builds": [
-    { "src": "*.html", "use": "@vercel/static" },
-    { "src": "intl-engine.js", "use": "@vercel/static" },
-    { "src": "api/*.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/lingShu.html" },
-    { "src": "/api/(.*)", "dest": "/api/$1" }
-  ]
-}
+{"version": 2, "name": "lingshu-life-compass", "buildCommand": "", "outputDirectory": ".", "builds": [{"src": "*.html", "use": "@vercel/static"}, {"src": "intl-engine.js", "use": "@vercel/static"}, {"src": "css/**", "use": "@vercel/static"}, {"src": "js/**", "use": "@vercel/static"}, {"src": "data/**", "use": "@vercel/static"}, {"src": "api/*.js", "use": "@vercel/node"}], "routes": [{"src": "/", "dest": "/lingShu.html"}, {"src": "/api/(.*)", "dest": "/api/$1"}]}
