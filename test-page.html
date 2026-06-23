@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -1201,33 +1201,10 @@ select option { background: var(--bg-soft); color: var(--text); }
     html += '<div class="cite"><span class="cite-src">— ' + citations.bazi.src + '</span><div class="cite-text">' + citations.bazi.text + '</div></div>';
     html += '</div>';
 
-    // ③ 六维调理方案（核心建议）
-    if (wx.weakest && window.WELLNESS_MAP && window.WELLNESS_MAP[wx.weakest]) {
-      var plan = window.WELLNESS_MAP[wx.weakest];
-      html += '<div class="report-card"><h3>③ Your 6-Dimension Wellness Plan</h3>';
-      html += '<p class="sub" style="margin-bottom:1rem;">Your <b style="color:' + (elColors[wx.weakest]||'var(--gold)') + '">' + (elNames[wx.weakest]||'energy') + '</b> is running low. Here is your personalized plan to restore balance:</p>';
-      html += '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;">';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">🎨</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Wear</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.color||'—') + '</div></div>';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">🧭</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Direction</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.direction||'—') + '</div></div>';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">🥗</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Nutrition</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.food||'—') + '</div></div>';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">🏃</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Movement</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.exercise||'—') + '</div></div>';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">💆</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Acupoint</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.acupoint||'—') + '</div></div>';
-      html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:1.5rem;margin-bottom:.3rem;">😴</div><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;">Rest</div><div style="font-size:.85rem;color:var(--gold);margin-top:.2rem;">' + (plan.sleep||'—') + '</div></div>';
-      html += '</div>';
-      if (plan.classic) {
-        html += '<div style="background:rgba(201,169,110,.06);border-left:2px solid var(--gold);padding:.8rem 1rem;border-radius:0 var(--r-sm) var(--r-sm) 0;margin-top:1rem;">';
-        html += '<div style="font-size:.75rem;color:var(--gold);margin-bottom:.2rem;">📜 Classic Wisdom</div>';
-        html += '<div style="font-size:.82rem;font-style:italic;color:var(--text-2);">' + plan.classic + '</div>';
-        if (plan.emotion) html += '<div style="font-size:.78rem;color:var(--text-3);margin-top:.2rem;">' + plan.emotion + '</div>';
-        html += '</div>';
-      }
-      html += '</div>';
-    }
-
-    // ④ Daily Lucky Tips
+    // ③ Daily Lucky Tips
     var luckyColors = (r.wearData && r.wearData.colors) || ['Yellow'];
     var luckyNums = [Math.floor(Math.random()*9)+1, Math.floor(Math.random()*9)+1];
-    html += '<div class="report-card"><h3>④ Today\'s Energy Tips</h3>';
+    html += '<div class="report-card"><h3>③ Today\'s Energy Tips</h3>';
     html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;">';
     html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Color</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyColors.join(', ') + '</div></div>';
     html += '<div style="background:var(--bg-input);border-radius:var(--r-sm);padding:1rem;text-align:center;"><div style="font-size:.7rem;color:var(--text-3);text-transform:uppercase;letter-spacing:.5px;">Lucky Numbers</div><div style="font-size:1.2rem;color:var(--gold);font-weight:600;margin-top:.3rem;">' + luckyNums.join(', ') + '</div></div>';
@@ -1235,11 +1212,11 @@ select option { background: var(--bg-soft); color: var(--text); }
     html += '<div style="margin-top:.8rem;font-size:.85rem;color:var(--text-2);"><b>Do:</b> Wear ' + luckyColors[0].toLowerCase() + ' tones, face ' + (r.yongshenData && r.yongshenData.direction || 'south') + ' direction<br><b>Avoid:</b> Overexertion, late nights</div>';
     html += '</div>';
 
-    // ⑤ Share Your Energy Avatar (BEFORE paywall — share first, pay later)
+    // ④ Share Your Energy Avatar (BEFORE paywall — share first, pay later)
     if (!isPaid) {
       var traits = generateTraits(r);
       html += '<div class="report-card" style="text-align:center;border:1px solid var(--gold);">';
-      html += '<h3 style="margin-bottom:.5rem;">📤 ⑤ Share Your Energy Avatar</h3>';
+      html += '<h3 style="margin-bottom:.5rem;">📤 Share Your Energy Avatar</h3>';
       html += '<p class="sub" style="margin-bottom:1rem;">Show the world your inner energy team</p>';
       // Mini avatar card
       html += '<div style="background:linear-gradient(135deg,var(--bg-input),var(--bg-card));border-radius:var(--r-md);padding:1.5rem;margin-bottom:1rem;">';
@@ -1607,3 +1584,4 @@ select option { background: var(--bg-soft); color: var(--text); }
 
 </body>
 </html>
+
