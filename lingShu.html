@@ -1418,6 +1418,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     var labels = ['Wood', 'Fire', 'Earth', 'Metal', 'Water'];
     var keys = ['木','火','土','金','水'];
     var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
+    var wx = r.wuxing || {};
     var counts = keys.map(function(k) { return (wx.counts && wx.counts[k]) || 0; });
     var maxCount = Math.max.apply(null, counts) || 1;
     var values = counts.map(function(c) { return c / maxCount; });
@@ -1504,6 +1505,7 @@ select option { background: var(--bg-soft); color: var(--text); }
     var cx = 80, cy = 80, maxR = 55;
     var keys = ['木','火','土','金','水'];
     var colors = ['#7DBF7D', '#E89090', '#D4B896', '#C8C8C8', '#7DA8C0'];
+    var wx = r.wuxing || {};
     var counts = keys.map(function(k) { return (wx.counts && wx.counts[k]) || 0; });
     var maxCount = Math.max.apply(null, counts) || 1;
     var values = counts.map(function(c) { return c / maxCount; });
